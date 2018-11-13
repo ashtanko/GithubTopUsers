@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/userImageView"
+            android:paddingTop="@dimen/spacing_medium"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_width="?attr/actionBarSize"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/spacing_large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@tools:sample/avatars"
+            app:layout_constraintTop_toTopOf="parent"
+    />
+
+    <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/userNameTextView"
+            tools:text="@tools:sample/lorem"
+            android:textSize="@dimen/user_nickname_title_text_size"
+            android:maxLines="1"
+            android:lines="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/userImageView"
+            android:layout_marginStart="@dimen/spacing_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            app:layout_constraintTop_toTopOf="@+id/userImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/userImageView"/>
+
+</android.support.constraint.ConstraintLayout>

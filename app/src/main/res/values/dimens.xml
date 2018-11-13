@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="spacing_medium">8dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="footer_progress_bar_size">25dp</dimen>
+    <dimen name="user_nickname_title_text_size">18sp</dimen>
+</resources>

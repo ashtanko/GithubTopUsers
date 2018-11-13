@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TopGithub</string>
+    <string name="user_id_message">User id %d</string>
+    <string name="connected_message">Network Connected</string>
+    <string name="offline_message">Offline</string>
+    <string name="error_message">Api Error %s</string>
+    <string name="try_again_title">Try Again</string>
+</resources>
