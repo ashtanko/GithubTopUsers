@@ -1,33 +1,22 @@
 package me.shtanko.topgithub.ui.main
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.main_fragment.*
 import me.shtanko.topgithub.R
-import me.shtanko.topgithub.ui.main.di.DaggerMainComponent
-import me.shtanko.topgithub.ui.main.extensions.isOnline
-import me.shtanko.topgithub.ui.main.extensions.shortToast
-import me.shtanko.topgithub.ui.main.viewmodel.MainViewModel
-import me.shtanko.topgithub.ui.main.viewmodel.ViewModelFactory
-import javax.inject.Inject
+import me.shtanko.topgithub.di.provideInjection
+import me.shtanko.topgithub.extensions.isOnline
+import me.shtanko.topgithub.extensions.shortToast
+import me.shtanko.topgithub.platform.BaseFragment
+import me.shtanko.topgithub.ui.details.DetailsActivity
 
-fun MainFragment.provideInjection() {
-    DaggerMainComponent.builder().build().inject(this)
-}
 
-class MainFragment : Fragment(), OnItemUserClickListener {
+class MainFragment : BaseFragment(), OnItemUserClickListener {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by bindViewModel()
 
     private lateinit var mainAdapter: MainAdapter
 
@@ -39,10 +28,9 @@ class MainFragment : Fragment(), OnItemUserClickListener {
     override fun onUserItemClick(userId: Int) {
         val message = String.format(resources.getString(R.string.user_id_message), userId)
         shortToast(message)
-    }
-
-    companion object {
-        fun newInstance() = MainFragment()
+        activity?.let {
+            startActivity(DetailsActivity.intent(it))
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,20 +47,21 @@ class MainFragment : Fragment(), OnItemUserClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+
+        //viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.loadData()
         mainAdapter = MainAdapter(this)
 
         usersRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
             adapter = mainAdapter
         }
 
-        usersRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        usersRecyclerView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
                 totalItemCount = layoutManager.itemCount
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
@@ -116,5 +105,9 @@ class MainFragment : Fragment(), OnItemUserClickListener {
         tryAgainButton.setOnClickListener {
             viewModel.loadData()
         }
+    }
+
+    companion object {
+        fun newInstance() = MainFragment()
     }
 }

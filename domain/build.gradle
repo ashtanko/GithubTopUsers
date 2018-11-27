@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+def ext = rootProject.ext
+
+android {
+    compileSdkVersion ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+
+dependencies {
+
+    implementation project(path: ':network')
+    implementation project(path: ':data')
+    implementation project(path: ':common')
+
+    //region kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"
+    //endregion
+
+    api "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    api "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}"
+
+    //region dependency injection
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    //endregion
+}

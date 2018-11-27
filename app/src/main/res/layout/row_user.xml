@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/userImageView"
             android:paddingTop="@dimen/spacing_medium"
             android:paddingBottom="@dimen/spacing_medium"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
     />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/userNameTextView"
             tools:text="@tools:sample/lorem"
             android:textSize="@dimen/user_nickname_title_text_size"
@@ -38,4 +38,4 @@
             app:layout_constraintTop_toTopOf="@+id/userImageView"
             app:layout_constraintBottom_toBottomOf="@+id/userImageView"/>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

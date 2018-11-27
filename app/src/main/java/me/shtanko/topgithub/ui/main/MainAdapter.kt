@@ -1,21 +1,21 @@
 package me.shtanko.topgithub.ui.main
 
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import me.shtanko.topgithub.R
-import me.shtanko.topgithub.ui.main.image.GlideApp
+import me.shtanko.topgithub.image.GlideApp
 
 interface OnItemUserClickListener {
     fun onUserItemClick(userId: Int)
 }
 
-internal class MainViewHolder(rowView: View) : RecyclerView.ViewHolder(rowView) {
+internal class MainViewHolder(rowView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(rowView) {
     val userImageView: AppCompatImageView = rowView.findViewById(R.id.userImageView)
     val userNameTextView: AppCompatTextView = rowView.findViewById(R.id.userNameTextView)
 
@@ -37,7 +37,7 @@ internal class MainViewHolder(rowView: View) : RecyclerView.ViewHolder(rowView) 
 
 internal class MainAdapter(
     private val listener: OnItemUserClickListener
-) : RecyclerView.Adapter<MainViewHolder>() {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<MainViewHolder>() {
 
     private val items: MutableList<Triple<String, String, Int>> = ArrayList()
 
