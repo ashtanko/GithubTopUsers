@@ -3,6 +3,7 @@ package me.shtanko.topgithub.ui.details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import me.shtanko.topgithub.R
 import me.shtanko.topgithub.platform.BaseActivity
 import me.shtanko.topgithub.ui.main.MainFragment
@@ -13,10 +14,15 @@ class DetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.container_activity)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, DetailsFragment.newInstance())
-                .commitNow()
+            navigator.openDetailsFragment(this)
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        onBackPressed()
+        return true
     }
 
     companion object {

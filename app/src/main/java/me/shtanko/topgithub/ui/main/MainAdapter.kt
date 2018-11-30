@@ -1,13 +1,19 @@
 package me.shtanko.topgithub.ui.main
 
+import android.graphics.drawable.Drawable
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import me.shtanko.topgithub.R
 import me.shtanko.topgithub.image.GlideApp
 
@@ -16,8 +22,9 @@ interface OnItemUserClickListener {
 }
 
 internal class MainViewHolder(rowView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(rowView) {
-    val userImageView: AppCompatImageView = rowView.findViewById(R.id.userImageView)
-    val userNameTextView: AppCompatTextView = rowView.findViewById(R.id.userNameTextView)
+    private val userImageView: AppCompatImageView = rowView.findViewById(R.id.userImageView)
+    private val userNameTextView: AppCompatTextView = rowView.findViewById(R.id.userNameTextView)
+    private val avatarProgressBar: ProgressBar = rowView.findViewById(R.id.avatarProgressBar)
 
     internal fun bindTo(item: Triple<String, String, Int>) {
         val url = item.first
@@ -27,6 +34,29 @@ internal class MainViewHolder(rowView: View) : androidx.recyclerview.widget.Recy
 
         GlideApp.with(userImageView.context)
             .load(url)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    avatarProgressBar.visibility = View.GONE
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    avatarProgressBar.visibility = View.GONE
+                    return false
+                }
+
+            })
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .transition(DrawableTransitionOptions.withCrossFade())
             .circleCrop()

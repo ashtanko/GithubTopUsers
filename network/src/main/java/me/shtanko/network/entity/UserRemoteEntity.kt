@@ -1,12 +1,12 @@
-package me.shtanko.data.entity
+package me.shtanko.network.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
-    @SerializedName("login")
-    val login: String,
+data class UserRemoteEntity(
     @SerializedName("id")
     val id: Int,
+    @SerializedName("login")
+    val login: String,
     @SerializedName("avatar_url")
     val avatarUrl: String
 )

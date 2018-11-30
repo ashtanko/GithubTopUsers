@@ -1,8 +1,8 @@
 package me.shtanko.network.api
 
 import io.reactivex.Single
-import me.shtanko.data.entity.User
-import retrofit2.Call
+import me.shtanko.domain.entity.User
+import me.shtanko.network.entity.UserRemoteEntity
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -21,6 +21,6 @@ interface GithubApiService {
         perPage: Int = DEFAULT_PER_PAGE,
         @Query("since")
         since: Int = 0
-    ): Single<List<User>>
+    ): Single<List<UserRemoteEntity>>
 
 }

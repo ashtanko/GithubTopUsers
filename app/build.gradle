@@ -67,6 +67,5 @@ dependencies {
     implementation project(path: ':data')
     implementation project(path: ':domain')
     implementation project(path: ':core')
-    implementation project(path: ':common')
     //endregion
 }

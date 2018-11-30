@@ -12,5 +12,12 @@ interface NetworkProvider {
 @Component(modules = [RestModule::class, NetworkModule::class])
 interface NetworkComponent : NetworkProvider {
 
+    class Initializer private constructor() {
+        companion object {
+            fun init(): NetworkComponent {
+                return DaggerNetworkComponent.builder().build()
+            }
+        }
+    }
 
 }

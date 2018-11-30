@@ -1,14 +1,15 @@
 package me.shtanko.topgithub.ui.main
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import io.reactivex.observers.DisposableObserver
-import me.shtanko.data.entity.User
+import me.shtanko.domain.entity.User
+import me.shtanko.domain.interactor.GetUsersUseCase
+import me.shtanko.topgithub.viewmodel.BaseViewModel
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val mainUseCase: MainUseCase
-) : ViewModel() {
+    private val getUsersUseCase: GetUsersUseCase
+) : BaseViewModel() {
 
     data class ViewState(
         val loading: Boolean = true,
@@ -34,7 +35,9 @@ class MainViewModel @Inject constructor(
     }
 
     private fun execute(page: Int = 1, since: Int = 0) {
-        mainUseCase.execute(getObserver(), MainUseCase.Params(page = page, since = since, perPage = 30))
+        val disposable = getUsersUseCase.execute(GetUsersUseCase.Params(page = page, since = since, perPage = 30))
+            .subscribeWith(getObserver())
+        addDisposable(disposable)
     }
 
     private fun getObserver(): DisposableObserver<List<User>> {

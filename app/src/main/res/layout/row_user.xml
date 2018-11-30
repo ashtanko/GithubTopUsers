@@ -23,6 +23,16 @@
             app:layout_constraintTop_toTopOf="parent"
     />
 
+    <ProgressBar
+            android:id="@+id/avatarProgressBar"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/userImageView"
+            app:layout_constraintStart_toStartOf="@+id/userImageView"
+            app:layout_constraintTop_toTopOf="@+id/userImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/userImageView"/>
+
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/userNameTextView"
             tools:text="@tools:sample/lorem"

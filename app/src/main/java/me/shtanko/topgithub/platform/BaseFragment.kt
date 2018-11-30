@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import me.shtanko.topgithub.AndroidApplication
 import me.shtanko.topgithub.di.ApplicationComponent
+import me.shtanko.topgithub.navigation.Navigator
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
@@ -17,6 +18,9 @@ abstract class BaseFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

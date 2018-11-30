@@ -17,6 +17,7 @@ buildscript {
         coroutinesVersion = '1.0.0'
         rxjavaVersion = '2.1.16'
         rxandroidVersion = '2.1.0'
+        roomVersion = '1.1.1'
     }
 
     repositories {

@@ -1,16 +1,49 @@
-apply plugin: 'java-library'
-apply plugin: "kotlin"
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+def ext = rootProject.ext
+
+android {
+    compileSdkVersion ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
 
 dependencies {
 
+    implementation project(path: ':network')
+    implementation project(path: ':domain')
+    implementation project(':core')
+
     //region kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     //endregion
 
-    //region network/io
-    implementation 'com.google.code.gson:gson:2.8.5'
+    api "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    api "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}"
+
+    //region dependency injection
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     //endregion
+
+    kapt "android.arch.persistence.room:compiler:$roomVersion"
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$roomVersion"
 }
-
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"

@@ -27,7 +27,7 @@ android {
 
 dependencies {
     //region kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     //endregion
 
     //region network/io
@@ -46,6 +46,5 @@ dependencies {
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     //endregion
-    implementation project(path: ':data')
-    implementation project(path: ':common')
+    implementation project(path: ':domain')
 }

@@ -8,5 +8,4 @@ class DetailsViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-
 }

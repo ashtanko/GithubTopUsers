@@ -23,7 +23,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.details.DetailsActivity"/>
+        <activity android:name=".ui.details.DetailsActivity"
+                  android:label="@string/details_activity_label">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -27,9 +27,9 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
 
     override fun onUserItemClick(userId: Int) {
         val message = String.format(resources.getString(R.string.user_id_message), userId)
-        shortToast(message)
+        //shortToast(message)
         activity?.let {
-            startActivity(DetailsActivity.intent(it))
+            navigator.openDetailsActivity(it, userId)
         }
     }
 
