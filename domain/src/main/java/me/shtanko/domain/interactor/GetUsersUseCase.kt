@@ -5,9 +5,8 @@ import me.shtanko.domain.Schedulers
 import me.shtanko.domain.UseCase
 import me.shtanko.domain.entity.User
 import me.shtanko.domain.gateway.SystemGateway
-import javax.inject.Inject
 
-class GetUsersUseCase @Inject constructor(
+class GetUsersUseCase constructor(
     schedulers: Schedulers,
     private val systemGateway: SystemGateway
 ) : UseCase<GetUsersUseCase.Params, List<User>>(schedulers) {
