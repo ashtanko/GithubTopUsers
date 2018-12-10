@@ -1,4 +1,4 @@
-# Top Github Users Android Application
+# Top Github Users Android Application [![Build Status](https://travis-ci.org/AdamLuisSean/GithubTopUsers.svg?branch=master)](https://travis-ci.org/AdamLuisSean/GithubTopUsers)
 
 The app displays a list of the Github top users.
 
