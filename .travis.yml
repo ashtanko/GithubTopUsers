@@ -134,7 +134,7 @@ script:
 
   - adb devices
   - adb shell input keyevent 82 &
-  - "./gradlew clean build lint --stacktrace createDebugUnitTestCoverageReport coveralls"
+  - "./gradlew clean build lint"
 #- bash ./config/ci-unit-tests.sh
 #- travis_wait bash ./config/ci-setup-emulator.sh
 #- travis_wait bash ./config/ci-instrumentation-tests.sh
