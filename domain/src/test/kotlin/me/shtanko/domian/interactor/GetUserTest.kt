@@ -23,7 +23,8 @@ class GetUserTest : UnitTest() {
                 getUser(testUserName)
             }
 
-        } doReturn (Either.Right(FullUser(0, testUserName, "", "", 0)))
+        } doReturn (Either.Right(FullUser(0, testUserName, "", "", "",
+            "", "", "","",0,0,0,0)))
     }
 
     @Before
