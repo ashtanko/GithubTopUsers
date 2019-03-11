@@ -3,5 +3,5 @@
 The app displays a list of the Github top users.
 
 <div>
-  <img align="center" src="art/screenshot.png" alt="App screenshot" height="640" width="360">
+  <img align="center" src="art/screenshot_20190312.png" alt="App screenshot" height="640" width="360">
 </div>
