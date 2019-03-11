@@ -33,18 +33,17 @@ dependencies {
     //region network/io
     api "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
     implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
     //endregion
-
-    implementation "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
-    implementation "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}"
 
     //region dependency injection
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     //endregion
     implementation project(path: ':domain')
+    implementation project(path: ':commonKotlin')
+    //implementation project(path: ':commonAndroid')
 }

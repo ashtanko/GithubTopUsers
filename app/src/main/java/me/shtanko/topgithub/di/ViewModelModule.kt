@@ -6,7 +6,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import me.shtanko.topgithub.ui.details.DetailsViewModel
-import me.shtanko.topgithub.ui.main.MainViewModel
+import me.shtanko.topgithub.ui.user.UserViewModel
+import me.shtanko.topgithub.ui.users.UsersViewModel
 import me.shtanko.topgithub.viewmodel.ViewModelFactory
 import me.shtanko.topgithub.viewmodel.ViewModelKey
 
@@ -17,12 +18,17 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    abstract fun bindsMainViewModel(viewModel: MainViewModel): ViewModel
+    @ViewModelKey(DetailsViewModel::class)
+    abstract fun bindsDetailsViewModel(viewModel: DetailsViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(DetailsViewModel::class)
-    abstract fun bindsDetailsViewModel(viewModel: DetailsViewModel): ViewModel
+    @ViewModelKey(UsersViewModel::class)
+    abstract fun bindsUsersViewModel(viewModel: UsersViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserViewModel::class)
+    abstract fun bindsUserViewModel(viewModel: UserViewModel): ViewModel
 
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appbar"
+    style="@style/Widget.AppBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/profileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="@dimen/margin_small"
+            android:padding="@dimen/spacing_micro"
+            android:src="@drawable/ic_account_circle_black" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/infoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:padding="@dimen/spacing_micro"
+            android:src="@drawable/ic_info_outline_black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:minHeight="?actionBarSize"
+            android:text="@string/app_name"
+            android:textSize="16sp"
+            tools:text="@tools:sample/lorem" />
+
+    </FrameLayout>
+
+
+</com.google.android.material.appbar.AppBarLayout>

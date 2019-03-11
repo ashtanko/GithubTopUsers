@@ -1,19 +1,23 @@
 package me.shtanko.topgithub.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import me.shtanko.common.Failure
+import me.shtanko.topgithub.ui.ViewState
 
 abstract class BaseViewModel : ViewModel() {
 
-    private val disposables = CompositeDisposable()
+    var failure: MutableLiveData<Failure> = MutableLiveData()
+    protected lateinit var currentViewState: ViewState
 
-    fun addDisposable(disposable: Disposable) {
-        disposables.addAll(disposable)
+    val viewState: MutableLiveData<ViewState> = MutableLiveData<ViewState>().apply {
+        currentViewState = ViewState()
+        value = currentViewState
     }
 
-    override fun onCleared() {
-        disposables.dispose()
+    protected fun handleFailure(failure: Failure) {
+        this.failure.value = failure
+        viewState.value = currentViewState.copy(loading = false, error = Pair(true, failure.toString()))
     }
 
 }

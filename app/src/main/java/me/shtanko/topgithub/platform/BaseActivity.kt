@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import me.shtanko.topgithub.AndroidApplication
 import me.shtanko.topgithub.di.ApplicationComponent
-import me.shtanko.topgithub.di.provideInjection
 import me.shtanko.topgithub.navigation.Navigator
 import javax.inject.Inject
 

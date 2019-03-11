@@ -15,7 +15,7 @@ import javax.inject.Inject
 class Navigator @Inject constructor() {
 
     companion object {
-        private val EXTRA_USER_ID = "${DetailsActivity::class.java.`package`.name}.extra.USER_ID"
+       const val EXTRA_USERNAME = "EXTRA_USERNAME"
     }
 
 
@@ -25,15 +25,17 @@ class Navigator @Inject constructor() {
             .commitNow()
     }
 
-    fun openDetailsFragment(activity: AppCompatActivity) {
+    fun openDetailsFragment(activity: AppCompatActivity, username: String) {
         activity.supportFragmentManager.beginTransaction()
-            .replace(R.id.container, DetailsFragment.newInstance())
+            .replace(R.id.container, DetailsFragment.newInstance(username))
             .commitNow()
     }
 
-    fun openDetailsActivity(activity: Activity, event: Int) {
-        val intent = Intent(activity, DetailsActivity::class.java)
-        intent.putExtra(EXTRA_USER_ID, event)
+    fun openDetailsActivity(activity: Activity, username: String) {
+
+        val intent = Intent(activity, DetailsActivity::class.java).apply {
+            putExtra(EXTRA_USERNAME, username)
+        }
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
         ActivityCompat.startActivity(activity, intent, options)
 

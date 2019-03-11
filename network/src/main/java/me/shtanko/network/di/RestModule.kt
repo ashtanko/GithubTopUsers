@@ -2,21 +2,22 @@ package me.shtanko.network.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import me.shtanko.network.GITHUB_API_URL
 import me.shtanko.network.GSON_DATE_FORMAT
-import me.shtanko.network.api.GithubApiService
+import me.shtanko.network.api.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 object RestModule {
+
     @Provides
     @JvmStatic
     @Singleton
@@ -55,15 +56,15 @@ object RestModule {
         client: OkHttpClient,
         converterFactory: Converter.Factory
     ): Retrofit.Builder = Retrofit.Builder()
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .addConverterFactory(converterFactory)
         .client(client)
 
     @Provides
     @JvmStatic
     @Singleton
-    fun provideGithubApiService(builder: Retrofit.Builder): GithubApiService = builder
+    fun provideApiService(builder: Retrofit.Builder): ApiService = builder
         .baseUrl(GITHUB_API_URL)
         .build()
-        .create(GithubApiService::class.java)
+        .create(ApiService::class.java)
 }

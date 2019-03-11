@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Users")
 data class UserLocalModel(
     @PrimaryKey var id: Int,
-    val login: String,
-    val avatarUrl: String
+    val login: String?,
+    val avatarUrl: String?
 )

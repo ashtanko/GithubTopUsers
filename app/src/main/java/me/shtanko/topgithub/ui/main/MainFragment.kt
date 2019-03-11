@@ -1,46 +1,42 @@
 package me.shtanko.topgithub.ui.main
 
-import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.main_fragment.*
+import me.shtanko.common.android.extensions.isOnline
 import me.shtanko.topgithub.R
-import me.shtanko.topgithub.di.provideInjection
-import me.shtanko.topgithub.extensions.isOnline
 import me.shtanko.topgithub.extensions.shortToast
 import me.shtanko.topgithub.platform.BaseFragment
-import me.shtanko.topgithub.ui.details.DetailsActivity
+import me.shtanko.topgithub.ui.ViewState
+import me.shtanko.topgithub.ui.users.UsersViewModel
 
 
 class MainFragment : BaseFragment(), OnItemUserClickListener {
 
-    private val viewModel: MainViewModel by bindViewModel()
+    private val viewModel: UsersViewModel by bindViewModel()
 
     private lateinit var mainAdapter: MainAdapter
+
+    private lateinit var profileButton: AppCompatImageView
 
     private var loading = false
     private var pageNumber = 1
     private var lastVisibleItem = 0
     private var totalItemCount = 0
 
-    override fun onUserItemClick(userId: Int) {
-        val message = String.format(resources.getString(R.string.user_id_message), userId)
-        //shortToast(message)
+    override fun onUserItemClick(username: String) {
         activity?.let {
-            navigator.openDetailsActivity(it, userId)
+            navigator.openDetailsActivity(it, username)
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        provideInjection()
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
@@ -48,9 +44,15 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        profileButton = view.findViewById(R.id.profileButton)
+
+        profileButton.setOnClickListener {
+
+        }
+
         viewModel.loadData()
-        mainAdapter = MainAdapter(this)
+
+        mainAdapter = MainAdapter(this, imageLoader)
 
         usersRecyclerView.apply {
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
@@ -67,20 +69,20 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
 
                 if (!loading && totalItemCount <= (lastVisibleItem + 1) && recyclerView.context.isOnline()) {
                     pageNumber++
-                    viewModel.onLoadNextPage(pageNumber, mainAdapter.getLastUserId())
+                    viewModel.loadNextPage(pageNumber, mainAdapter.getLastUserId())
                     loading = true
                 }
             }
         })
 
 
-        viewModel.data.observe(this, Observer {
+        viewModel.users.observe(this, Observer {
             it?.let { list ->
                 mainAdapter.addItems(list)
             }
         })
 
-        viewModel.viewState.observe(this, Observer<MainViewModel.ViewState> { viewState ->
+        viewModel.viewState.observe(this, Observer<ViewState> { viewState ->
             viewState?.let {
                 val error = it.error
                 val isError = error.first

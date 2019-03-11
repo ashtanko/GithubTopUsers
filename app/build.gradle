@@ -33,7 +33,7 @@ kapt {
 
 dependencies {
     //region kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     //endregion
 
     //region support
@@ -54,18 +54,22 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
     //endregion
 
+    implementation "com.google.android.material:material:1.0.0"
+
     //region unit testing
     testImplementation 'junit:junit:4.12'
     //endregion
 
     //region ui testing
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     api "com.squareup.retrofit2:retrofit:${retrofitVersion}"
 
     implementation project(path: ':data')
     implementation project(path: ':domain')
     implementation project(path: ':core')
+    implementation project(path: ':commonAndroid')
+    implementation project(path: ':commonKotlin')
     //endregion
 }
