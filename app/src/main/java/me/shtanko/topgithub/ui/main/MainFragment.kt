@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.main_fragment.*
+import androidx.recyclerview.widget.RecyclerView
 import me.shtanko.common.android.extensions.isOnline
 import me.shtanko.topgithub.R
 import me.shtanko.topgithub.extensions.shortToast
@@ -22,6 +23,9 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
     private lateinit var mainAdapter: MainAdapter
 
     private lateinit var profileButton: AppCompatImageView
+    private lateinit var usersRecyclerView: RecyclerView
+    private lateinit var tryAgainButton: AppCompatButton
+    private lateinit var footerProgressBar: View
 
     private var loading = false
     private var pageNumber = 1
@@ -35,8 +39,8 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
@@ -45,6 +49,9 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         profileButton = view.findViewById(R.id.profileButton)
+        usersRecyclerView = view.findViewById(R.id.usersRecyclerView)
+        tryAgainButton = view.findViewById(R.id.tryAgainButton)
+        footerProgressBar = view.findViewById(R.id.footerProgressBar)
 
         profileButton.setOnClickListener {
 
