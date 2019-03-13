@@ -28,16 +28,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), file("proguard-rules.pro"))
         }
     }
-
-    configurations.all {
-        resolutionStrategy.eachDependency{
-            if (requested.group == "androidx.appcompat") {
-                if (!requested.name.startsWith("multidex")) {
-                    useVersion("1.+")
-                }
-            }
-        }
-    }
 }
 
 dependencies {

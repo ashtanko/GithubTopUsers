@@ -6,6 +6,7 @@ dependencies {
     //region kotlin
     implementation(Dependencies.Kotlin.Stdlib.core)
     implementation(Dependencies.Kotlin.coroutines)
+    implementation(Dependencies.Kotlin.coroutinesAndroid)
     //endregion
 
     implementation(Dependencies.dagger)
