@@ -4,31 +4,63 @@ import android.util.Log
 import kotlinx.coroutines.Deferred
 import me.shtanko.common.Either
 import me.shtanko.common.Failure
+import me.shtanko.common.android.NetworkHandler
+import me.shtanko.common.exception.OppCodeRequiredException
+import me.shtanko.common.exception.RequestsOverlimitException
+import me.shtanko.common.exception.UnknownServerException
+import me.shtanko.network.api.ApiAuthService
 import me.shtanko.network.api.ApiService
-import me.shtanko.network.entity.FullUserRemoteEntity
-import me.shtanko.network.entity.UserRemoteEntity
+import me.shtanko.network.entity.response.FullUserRemoteEntity
+import me.shtanko.network.entity.response.TokenEntity
+import me.shtanko.network.entity.response.UserRemoteEntity
+import me.shtanko.network.interceptor.RequestHeaders
 import retrofit2.Response
 import javax.inject.Inject
 
-interface NetworkClient {
-
+interface UserApi {
     suspend fun getUsers(page: Int, perPage: Int, since: Int): Either<Failure, List<UserRemoteEntity>>
     suspend fun getUser(username: String): Either<Failure, FullUserRemoteEntity>
+}
+
+interface AuthApi {
+    suspend fun login(username: String, password: String): Either<Failure, TokenEntity>
+}
+
+interface NetworkClient : UserApi, AuthApi {
 
 }
 
 class Network @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val apiAuthService: ApiAuthService,
+    private val networkHandler: NetworkHandler
 ) : NetworkClient {
 
+
+    override suspend fun login(username: String, password: String): Either<Failure, TokenEntity> {
+
+        val authToken = ApiAuthService.getCredentials(username, password)
+
+        RequestHeaders.accessToken = authToken
+
+        return request(apiAuthService.loginAsync(), { it }, TokenEntity(-1))
+    }
+
     override suspend fun getUsers(page: Int, perPage: Int, since: Int): Either<Failure, List<UserRemoteEntity>> {
-        return request(apiService.getUsersAsync(page, perPage, since), { it }, emptyList())
+        return requestOrError(request(apiService.getUsersAsync(page, perPage, since), { it }, emptyList()))
     }
 
     override suspend fun getUser(username: String): Either<Failure, FullUserRemoteEntity> {
-        return request(apiService.getUserAsync(username), { it }, FullUserRemoteEntity.empty())
+        return requestOrError(request(apiService.getUserAsync(username), { it }, FullUserRemoteEntity.empty()))
     }
 
+    private fun <R> requestOrError(request: Either<Failure, R>): Either<Failure, R> {
+        return if (networkHandler.isConnected == true) {
+            request
+        } else {
+            Either.Left(Failure.NetworkConnection)
+        }
+    }
 
     private suspend fun <T, R> request(
         response: Deferred<Response<T>>,
@@ -42,12 +74,32 @@ class Network @Inject constructor(
             val headers = r.headers().toMultimap()
             val requestsLimit = headers["x-ratelimit-limit"]
             val requestsRemaining = headers["x-ratelimit-remaining"]
+            val isOtpRequired = headers["X-GitHub-OTP"]
 
-            Log.d("LOL", "HEADERS: $requestsLimit $requestsRemaining")
+            val remaining = if (requestsRemaining != null && requestsRemaining.isNotEmpty()) {
+                try {
+                    requestsRemaining[0].toInt()
+                } catch (e: Exception) {
+                    0
+                }
 
-            when (r.isSuccessful) {
-                true -> Either.Right(transform((r.body() ?: default)))
-                false -> Either.Left(Failure.ServerError)
+            } else {
+                0
+            }
+
+            Log.d(
+                "TEST",
+                "${r.isSuccessful} isOtpRequiredException:$isOtpRequired HEADERS: $requestsLimit $requestsRemaining $remaining"
+            )
+
+            if (r.isSuccessful) {
+                Either.Right(transform((r.body() ?: default)))
+            } else if (!r.isSuccessful && isOtpRequired != null) {
+                Either.Left(Failure.ServerException(OppCodeRequiredException()))
+            } else if (remaining == 0) {
+                Either.Left(Failure.ServerException(RequestsOverlimitException("Requests overlimit!")))
+            } else {
+                Either.Left(Failure.ServerException(UnknownServerException(r.message())))
             }
 
         } catch (exception: Throwable) {

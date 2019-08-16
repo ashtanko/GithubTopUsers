@@ -1,4 +1,4 @@
-package me.shtanko.network.entity
+package me.shtanko.network.entity.response
 
 import com.google.gson.annotations.SerializedName
 

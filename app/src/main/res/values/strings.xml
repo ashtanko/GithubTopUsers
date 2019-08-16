@@ -13,4 +13,14 @@
     <string name="follow_button_title">Follow</string>
     <string name="unfollow_button_title">Unfollow</string>
     <!--/-->
+
+    <!-- designer news login -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+    <string name="login_action">Log in</string>
+
+    <string name="login_failed">Login failed</string>
+
+    <string name="search">Search…</string>
 </resources>

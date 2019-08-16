@@ -1,6 +1,7 @@
 package me.shtanko.network.di
 
 import dagger.Component
+import me.shtanko.core.MainToolsProvider
 import me.shtanko.network.NetworkClient
 import javax.inject.Singleton
 
@@ -9,13 +10,18 @@ interface NetworkProvider {
 }
 
 @Singleton
-@Component(modules = [RestModule::class, NetworkModule::class])
+@Component(
+    modules = [RestModule::class, NetworkModule::class],
+    dependencies = [MainToolsProvider::class]
+)
 interface NetworkComponent : NetworkProvider {
 
     class Initializer private constructor() {
         companion object {
-            fun init(): NetworkComponent {
-                return DaggerNetworkComponent.builder().build()
+            fun init(mainToolsProvider: MainToolsProvider): NetworkComponent {
+                return DaggerNetworkComponent.builder()
+                    .mainToolsProvider(mainToolsProvider)
+                    .build()
             }
         }
     }

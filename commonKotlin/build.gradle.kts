@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
     //region kotlin
-    implementation(Dependencies.Kotlin.Stdlib.core)
+    implementation(Dependencies.Kotlin.Stdlib.CORE)
     //endregion
 }

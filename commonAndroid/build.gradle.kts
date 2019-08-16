@@ -1,3 +1,7 @@
+import Versions.Android.Build.COMPILE_SDK_VERSION
+import Versions.Android.Build.MIN_SDK_VERSION
+import Versions.Android.Build.TARGET_SDK_VERSION
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -5,11 +9,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.Android.Build.compileSdkVersion)
+    compileSdkVersion(COMPILE_SDK_VERSION)
 
     defaultConfig {
-        minSdkVersion(Versions.Android.Build.minSdkVersion)
-        targetSdkVersion(Versions.Android.Build.targetSdkVersion)
+        minSdkVersion(MIN_SDK_VERSION)
+        targetSdkVersion(TARGET_SDK_VERSION)
         versionCode = 1
         versionName = "1.0"
 
@@ -28,13 +32,11 @@ android {
 
 dependencies {
     //region kotlin
-    implementation(Dependencies.Kotlin.Stdlib.core)
+    implementation(Dependencies.Kotlin.Stdlib.CORE)
     //endregion
 
     //region dependency injection
-    implementation(Dependencies.dagger)
-    kapt(Dependencies.daggerCompiler)
+    implementation(Dependencies.Injection.DAGGER)
+    kapt(Dependencies.Injection.COMPILER)
     //endregion
-
-    implementation(project(":core"))
 }

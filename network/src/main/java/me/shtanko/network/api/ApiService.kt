@@ -1,8 +1,8 @@
 package me.shtanko.network.api
 
 import kotlinx.coroutines.Deferred
-import me.shtanko.network.entity.FullUserRemoteEntity
-import me.shtanko.network.entity.UserRemoteEntity
+import me.shtanko.network.entity.response.FullUserRemoteEntity
+import me.shtanko.network.entity.response.UserRemoteEntity
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

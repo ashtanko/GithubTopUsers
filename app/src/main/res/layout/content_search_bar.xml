@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="?android:attr/colorPrimary"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:theme="@style/ThemeOverlay.SdkSearch.Dark.ActionBar"
+            tools:ignore="UnusedIds">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:importantForAccessibility="no"
+                android:paddingStart="@dimen/horizontal_spacing"
+                android:paddingEnd="@dimen/horizontal_spacing"
+                android:src="@drawable/ic_arrow_back_white" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/query"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/search"
+                android:imeOptions="actionSearch|flagNoExtractUi"
+                android:inputType="textCapWords|textNoSuggestions"
+                android:privateImeOptions="nm"
+                android:selectAllOnFocus="true" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/clearQuery"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:paddingStart="@dimen/horizontal_spacing"
+                android:paddingEnd="@dimen/horizontal_spacing"
+                android:src="@drawable/ic_close_white"
+                android:visibility="invisible"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</layout>

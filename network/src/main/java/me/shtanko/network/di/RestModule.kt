@@ -5,14 +5,20 @@ import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
+import me.shtanko.common.android.NetworkHandler
+import me.shtanko.core.App
 import me.shtanko.network.GITHUB_API_URL
 import me.shtanko.network.GSON_DATE_FORMAT
+import me.shtanko.network.api.ApiAuthService
 import me.shtanko.network.api.ApiService
+import me.shtanko.network.interceptor.AuthInterceptor
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -42,11 +48,31 @@ object RestModule {
     @Provides
     @JvmStatic
     @Singleton
+    fun provideAuthInterceptor() = AuthInterceptor()
+
+    @Provides
+    @JvmStatic
+    @Singleton
+    fun provideOkHttpCache(app: App): Cache {
+        return Cache(app.getApplicationContext().cacheDir, CACHE_SIZE)
+    }
+
+    @Provides
+    @JvmStatic
+    @Singleton
     fun provideOkHttpClient(
-        interceptor: HttpLoggingInterceptor
+        interceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthInterceptor,
+        cache: Cache
     ): OkHttpClient =
         OkHttpClient().newBuilder()
+            .cache(cache)
             .addNetworkInterceptor(interceptor)
+            .addNetworkInterceptor(authInterceptor)
+            .connectTimeout(CONNECTION_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .writeTimeout(WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
             .build()
 
     @Provides
@@ -67,4 +93,25 @@ object RestModule {
         .baseUrl(GITHUB_API_URL)
         .build()
         .create(ApiService::class.java)
+
+    @Provides
+    @JvmStatic
+    @Singleton
+    fun provideNetworkHandler(app: App): NetworkHandler {
+        return NetworkHandler(app.getApplicationContext())
+    }
+
+    @Provides
+    @JvmStatic
+    @Singleton
+    fun provideAuthApiService(builder: Retrofit.Builder): ApiAuthService = builder
+        .baseUrl(GITHUB_API_URL)
+        .build()
+        .create(ApiAuthService::class.java)
+
+    private const val CACHE_SIZE: Long = 10 * 1024 * 1024 // 10MB
+    private const val CONNECTION_TIMEOUT_SECONDS = 120L
+    private const val READ_TIMEOUT_SECONDS = 120L
+    private const val WRITE_TIMEOUT_SECONDS = 120L
+
 }

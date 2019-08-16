@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import me.shtanko.common.android.extensions.isOnline
 import me.shtanko.topgithub.R
+import me.shtanko.topgithub.databinding.MainDataBinding
 import me.shtanko.topgithub.extensions.shortToast
 import me.shtanko.topgithub.platform.BaseFragment
+import me.shtanko.topgithub.ui.ErrorUiState
+import me.shtanko.topgithub.ui.UiState
 import me.shtanko.topgithub.ui.ViewState
 import me.shtanko.topgithub.ui.users.UsersViewModel
 
@@ -22,15 +22,12 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
 
     private lateinit var mainAdapter: MainAdapter
 
-    private lateinit var profileButton: AppCompatImageView
-    private lateinit var usersRecyclerView: RecyclerView
-    private lateinit var tryAgainButton: AppCompatButton
-    private lateinit var footerProgressBar: View
-
     private var loading = false
     private var pageNumber = 1
     private var lastVisibleItem = 0
     private var totalItemCount = 0
+
+    private lateinit var binding: MainDataBinding
 
     override fun onUserItemClick(username: String) {
         activity?.let {
@@ -39,34 +36,45 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        binding = MainDataBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profileButton = view.findViewById(R.id.profileButton)
-        usersRecyclerView = view.findViewById(R.id.usersRecyclerView)
-        tryAgainButton = view.findViewById(R.id.tryAgainButton)
-        footerProgressBar = view.findViewById(R.id.footerProgressBar)
+        binding.appBarContent.infoButton.setOnClickListener {
+            activity?.let {
+                navigator.openSubmitLogActivity(it)
+            }
+        }
 
-        profileButton.setOnClickListener {
+        binding.appBarContent.profileButton.setOnClickListener {
+            activity?.let {
+                navigator.openLoginActivity(it)
+            }
+        }
 
+        binding.searchButton.setOnClickListener {
+            activity?.let {
+                navigator.openSearchActivity(it)
+            }
         }
 
         viewModel.loadData()
 
         mainAdapter = MainAdapter(this, imageLoader)
 
-        usersRecyclerView.apply {
+        binding.usersRecyclerView.apply {
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
             adapter = mainAdapter
         }
 
-        usersRecyclerView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+        binding.usersRecyclerView.addOnScrollListener(object :
+                androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
@@ -74,7 +82,7 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
                 totalItemCount = layoutManager.itemCount
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
-                if (!loading && totalItemCount <= (lastVisibleItem + 1) && recyclerView.context.isOnline()) {
+                if (!loading && totalItemCount <= (lastVisibleItem + 1) && recyclerView.context.isOnline() == true) {
                     pageNumber++
                     viewModel.loadNextPage(pageNumber, mainAdapter.getLastUserId())
                     loading = true
@@ -96,22 +104,48 @@ class MainFragment : BaseFragment(), OnItemUserClickListener {
                 val errorMessage = error.second
                 if (isError) {
                     if (mainAdapter.itemCount == 0)
-                        tryAgainButton.visibility = View.VISIBLE
+                        binding.tryAgainButton.visibility = View.VISIBLE
                     shortToast(String.format(getString(R.string.error_message), errorMessage))
                 } else {
-                    tryAgainButton.visibility = View.GONE
+                    binding.tryAgainButton.visibility = View.GONE
                 }
 
                 this.loading = it.loading
                 if (it.loading) {
-                    footerProgressBar.visibility = View.VISIBLE
+                    binding.footerProgressBar.visibility = View.VISIBLE
                 } else {
-                    footerProgressBar.visibility = View.GONE
+                    binding.footerProgressBar.visibility = View.GONE
                 }
             }
         })
 
-        tryAgainButton.setOnClickListener {
+        viewModel.errorUiState.observe(this, Observer {
+            when (it) {
+                is ErrorUiState.ShowNetworkConnectionError -> {
+                    binding.tryAgainButton.visibility = View.VISIBLE
+
+                }
+
+                is ErrorUiState.ShowServerError -> {
+
+                }
+
+            }
+        })
+
+        viewModel.uiState.observe(this, Observer {
+            when (it) {
+                is UiState.ShowProgress -> {
+                    binding.progress.visibility = View.VISIBLE
+                }
+
+                is UiState.HideProgress -> {
+                    binding.progress.visibility = View.GONE
+                }
+            }
+        })
+
+        binding.tryAgainButton.setOnClickListener {
             viewModel.loadData()
         }
     }

@@ -19,8 +19,8 @@
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,6 +33,35 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Translucent"
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
+
+        <activity
+            android:exported="false"
+            android:theme="@style/AppTheme.Translucent"
+            android:windowSoftInputMode="adjustResize"
+            android:name=".ui.search.SearchActivity">
+
+        </activity>
+
+        <activity android:name=".log.SubmitLogActivity">
+
+        </activity>
+
+        <meta-data
+                android:name="io.fabric.ApiKey"
+                android:value="8e67caed00cf06ca097eca54db5af2556440b294"
+        />
+
+        <meta-data
+                android:name="firebase_performance_logcat_enabled"
+                android:value="true" />
 
     </application>
 

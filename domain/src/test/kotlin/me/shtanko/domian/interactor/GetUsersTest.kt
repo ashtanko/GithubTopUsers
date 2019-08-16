@@ -26,8 +26,6 @@ class GetUsersTest : UnitTest() {
     @Before
     fun setUp() {
         getUsers = GetUsers(usersGateway)
-
-
     }
 
     @Test

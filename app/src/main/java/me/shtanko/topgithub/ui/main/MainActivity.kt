@@ -1,9 +1,11 @@
 package me.shtanko.topgithub.ui.main
 
 import android.os.Bundle
+import com.google.firebase.perf.metrics.AddTrace
 import me.shtanko.topgithub.R
 import me.shtanko.topgithub.platform.BaseActivity
 
+@AddTrace(name = "onCreateTrace", enabled = true /* optional */)
 class MainActivity : BaseActivity() {
 
 

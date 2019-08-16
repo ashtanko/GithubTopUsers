@@ -4,21 +4,21 @@ plugins {
 
 dependencies {
     //region kotlin
-    implementation(Dependencies.Kotlin.Stdlib.core)
-    implementation(Dependencies.Kotlin.coroutines)
-    implementation(Dependencies.Kotlin.coroutinesAndroid)
+    implementation(Dependencies.Kotlin.Stdlib.CORE)
+    implementation(Dependencies.Kotlin.COROUTINES)
+    implementation(Dependencies.Kotlin.COROUTINES_ANDROID)
     //endregion
 
-    implementation(Dependencies.dagger)
+    implementation(Dependencies.Injection.DAGGER)
 
-    implementation(project(":commonKotlin"))
+    implementation(project(Modules.COMMON_KOTLIN))
 
-    testImplementation(TestDependencies.junit)
-    testImplementation(TestDependencies.mockito)
-    testImplementation(TestDependencies.kotlinTest)
-    testImplementation(TestDependencies.mockitoKotlin)
-    testImplementation(TestDependencies.mockitokotlin2)
-    testImplementation(Dependencies.Kotlin.coroutines)
-    testImplementation(Dependencies.Kotlin.Stdlib.core)
+    testImplementation(TestDependencies.JUNIT)
+    testImplementation(TestDependencies.MOCKITO)
+    testImplementation(TestDependencies.JUNIT_KOTLIN)
+    testImplementation(TestDependencies.MOCKITO_KOTLIN)
+    testImplementation(TestDependencies.MOCKITO_KOTLIN_2)
+    testImplementation(Dependencies.Kotlin.COROUTINES)
+    testImplementation(Dependencies.Kotlin.Stdlib.CORE)
 
 }

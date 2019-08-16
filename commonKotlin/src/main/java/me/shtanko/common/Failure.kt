@@ -7,7 +7,7 @@ package me.shtanko.common
 sealed class Failure {
     object NetworkConnection : Failure()
     object ServerError : Failure()
-
+    data class ServerException(val failure: Exception) : Failure()
     /** * Extend this class for feature specific failures.*/
-    abstract class FeatureFailure: Failure()
+    abstract class FeatureFailure : Failure()
 }

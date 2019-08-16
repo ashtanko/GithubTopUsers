@@ -2,7 +2,9 @@ package me.shtanko.topgithub.platform
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import me.shtanko.topgithub.AndroidApplication
 import me.shtanko.topgithub.di.ApplicationComponent
 import me.shtanko.topgithub.navigation.Navigator
@@ -24,5 +26,8 @@ abstract class BaseActivity : AppCompatActivity() {
         appComponent.inject(this)
         super.onCreate(savedInstanceState)
     }
+
+    protected inline fun <reified V : ViewModel> bindViewModel() =
+            lazy { ViewModelProviders.of(this, viewModelFactory).get(V::class.java) }
 
 }

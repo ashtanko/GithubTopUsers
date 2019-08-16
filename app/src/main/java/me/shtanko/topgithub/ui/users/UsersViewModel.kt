@@ -1,8 +1,12 @@
 package me.shtanko.topgithub.ui.users
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import me.shtanko.common.Failure
 import me.shtanko.domain.entity.User
 import me.shtanko.domain.interactor.GetUsers
+import me.shtanko.topgithub.ui.ErrorUiState
+import me.shtanko.topgithub.ui.UiState
 import me.shtanko.topgithub.viewmodel.BaseViewModel
 import javax.inject.Inject
 
@@ -12,8 +16,12 @@ class UsersViewModel @Inject constructor(
 
     var users: MutableLiveData<List<User>> = MutableLiveData()
 
+    private val _errorUiState: MutableLiveData<ErrorUiState> = MutableLiveData()
+    val errorUiState: LiveData<ErrorUiState>
+        get() = _errorUiState
 
     fun loadData() {
+        _uiState.value = UiState.ShowProgress
         loadUsers()
     }
 
@@ -25,7 +33,24 @@ class UsersViewModel @Inject constructor(
     private fun loadUsers(page: Int = 1, since: Int = 0) {
         val params = GetUsers.Params(page = page, perPage = PER_PAGE, since = since)
 
-        getUsers(params) { it.either(::handleFailure, ::handleUsers) }
+        getUsers(params) {
+            _uiState.value = UiState.HideProgress
+            it.either(::handleError, ::handleUsers)
+        }
+    }
+
+    private fun handleError(failure: Failure) {
+        when (failure) {
+            is Failure.NetworkConnection -> {
+                _errorUiState.value = ErrorUiState.ShowNetworkConnectionError
+            }
+            is Failure.ServerError -> {
+                _errorUiState.value = ErrorUiState.ShowServerError
+            }
+            is Failure.ServerException -> {
+                //failure.failure
+            }
+        }
     }
 
     private fun handleUsers(users: List<User>) {
