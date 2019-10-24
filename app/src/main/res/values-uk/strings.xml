@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Github Top Users</string>
+    <string name="connected_message">Network Connected</string>
+    <string name="offline_message">Offline</string>
+    <string name="error_message">Помилка сервера %s</string>
+    <string name="try_again_title">Спробуйте ще раз</string>
+
+    <!--Profile -->
+    <string name="repositories_title">Репозиторії</string>
+    <string name="stars_title">Обрані</string>
+    <string name="followers_title">Підписники</string>
+    <string name="following_title">Підписки</string>
+    <string name="follow_button_title">Підписатися</string>
+    <string name="unfollow_button_title">Відпісатися</string>
+    <!--/-->
+</resources>

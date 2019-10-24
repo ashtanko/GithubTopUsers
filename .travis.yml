@@ -1,0 +1,142 @@
+language: android
+jdk: oraclejdk8
+
+# Choosing faster environment since it's a full VM.
+# https://docs.travis-ci.com/user/reference/overview/
+sudo: required
+dist: trusty
+
+notifications:
+  webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
+  email:
+    - adamluissean@gmail.com
+
+
+env:
+  global:
+    - SDK_API=28
+    - ANDROID_API=28
+    - EMULATOR_API_LEVEL=25
+    - ANDROID_BUILD_TOOLS=28.0.3
+    - ADB_INSTALL_TIMEOUT=55 # minutes
+    - ANDROID_BUILD_TOOLS_VERSION=28.0.3
+    - ANDROID_ABI=armeabi-v7a
+    - ANDROID_TAG=google_apis
+    - CODECOV_TOKEN=e9eaaab7-88f9-404c-8781-d12f776224a8
+    - TEST_TYPE=unit
+
+android:
+  components:
+    - android-$SDK_API
+
+    - tools
+    - platform-tools
+    - build-tools-$ANDROID_BUILD_TOOLS
+    - android-$ANDROID_API
+    - android-$EMULATOR_API_LEVEL
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository # for design library
+    - addon-google_apis-google-19 # google play services
+    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
+    - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
+    # Emulator sys img
+    - sys-img-$ANDROID_ABI-$ANDROID_TAG-$EMULATOR_API_LEVEL
+
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+    - '.+'
+
+install:
+  - mkdir "$ANDROID_HOME/licenses" || true
+  - echo y | android update sdk -u -a -t tools
+  - echo y | android update sdk -u -a -t platform-tools
+  - echo y | android update sdk -u -a -t build-tools-28.0.3
+  - echo y | android update sdk -u -a -t android-28
+  - echo y | android update sdk -u -a -t android-27
+  - echo y | android update sdk -u -a -t extra-google-m2repository
+  - echo y | android update sdk -u -a -t extra-android-m2repository
+  - echo y | android update sdk -u -a -t android-sdk-preview-license
+  - echo y | android update sdk -u -a -t android-sdk-license
+  - echo yes | sdkmanager "platforms;android-28" # Latest platform required by SDK tools
+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f $HOME/.gradle/caches/4.10/classAnalysis/classAnalysis.lock
+  - rm -f $HOME/.gradle/caches/4.10/jarSnapshots/jarSnapshots.lock
+  - rm -f $HOME/.gradle/caches/4.10.1/classAnalysis/classAnalysis.lock
+  - rm -f $HOME/.gradle/caches/4.10.1/jarSnapshots/jarSnapshots.lock
+
+
+cache:
+  directories:
+    - $HOME/.gradle/daemon
+    - $HOME/.gradle/native
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+include:
+  - env: ANDROID_TARGET=android-28  ANDROID_ABI=armeabi-v7a
+
+    allow_failures:
+      - env: ANDROID_TARGET=android-14  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-15  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-16  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-17  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-20  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-21  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-22  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-24  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-25  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-26  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-27  ANDROID_ABI=armeabi-v7a
+      - env: ANDROID_TARGET=android-28  ANDROID_ABI=armeabi-v7a
+    fast_finish: false
+
+
+before_script:
+  # Create and start emulator
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - echo PATH $PATH
+  - android list target
+  - android list sdk
+  - which android-update-sdk
+  - cat `which android-update-sdk`
+  - android-update-sdk
+  - android list sdk --all --extended
+  - uname -a
+  - df -h
+  - mount
+  - cat /proc/cpuinfo
+  - echo $ANDROID_TARGET
+  - echo $ANDROID_ABI
+  - chmod +x gradlew
+
+before_install:
+  - mkdir "$ANDROID_HOME/licenses" || true
+  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+  - chmod +x gradlew
+  - ./gradlew dependencies || true
+  - pip install --user codecov    #Install codecov
+
+script:
+  - echo "***** START SCRIPT *****"
+  - echo "Travis branch is $TRAVIS_BRANCH"
+  - uname -a
+
+  - adb devices
+  - adb shell input keyevent 82 &
+  - "./gradlew clean build lint"
+#- bash ./config/ci-unit-tests.sh
+#- travis_wait bash ./config/ci-setup-emulator.sh
+#- travis_wait bash ./config/ci-instrumentation-tests.sh
+after_success:
+  - codecov

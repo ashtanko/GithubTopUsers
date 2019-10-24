@@ -1,0 +1,5 @@
+-dontwarn dagger.**
+-keep class dagger.** { *; }
+-keep class * extends dagger.** { *; }
+-keep interface dagger.** {*;}
+-keep class javax.inject.** { *; }

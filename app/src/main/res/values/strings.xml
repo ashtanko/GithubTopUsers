@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Github Top Users</string>
+    <string name="connected_message">Network Connected</string>
+    <string name="offline_message">Offline</string>
+    <string name="error_message">Api Error %s</string>
+    <string name="try_again_title">Try Again</string>
+
+    <!--Profile -->
+    <string name="repositories_title">Repositories</string>
+    <string name="stars_title">Stars</string>
+    <string name="followers_title">Followers</string>
+    <string name="following_title">Following</string>
+    <string name="follow_button_title">Follow</string>
+    <string name="unfollow_button_title">Unfollow</string>
+    <!--/-->
+
+    <!-- designer news login -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+    <string name="login_action">Log in</string>
+
+    <string name="login_failed">Login failed</string>
+
+    <string name="search">Search…</string>
+</resources>

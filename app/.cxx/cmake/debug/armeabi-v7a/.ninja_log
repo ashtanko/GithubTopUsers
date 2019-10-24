@@ -1,0 +1,9 @@
+# ninja log v5
+0	24	0	CMakeFiles/g.dir/glib.cpp.o	458fb0c55e9d8618
+24	50	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libg.so	de8fa2969886fb04
+1	410	0	CMakeFiles/root.dir/root.cpp.o	4e03b7228d93b127
+411	441	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libroot.so	7f87ed71e49614db
+0	199	0	CMakeFiles/g.dir/glib.cpp.o	458fb0c55e9d8618
+199	321	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libg.so	de8fa2969886fb04
+2	1211	0	CMakeFiles/root.dir/root.cpp.o	4e03b7228d93b127
+1212	1267	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libroot.so	7f87ed71e49614db

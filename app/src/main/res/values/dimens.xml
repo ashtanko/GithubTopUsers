@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
+    <dimen name="spacing_nano">2dp</dimen>
+    <dimen name="spacing_large">32dp</dimen>
+    <dimen name="spacing_xlarge">48dp</dimen>
+    <dimen name="spacing_huge">64dp</dimen>
+
+    <dimen name="horizontal_spacing">12sp</dimen>
+
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+
+    <dimen name="spacing_medium">8dp</dimen>
+    <dimen name="footer_progress_bar_size">25dp</dimen>
+    <dimen name="user_nickname_title_text_size">18sp</dimen>
+    <dimen name="profile_login_text_size">22sp</dimen>
+    <dimen name="profile_data_title_text_size">12sp</dimen>
+    <dimen name="profile_data_description_text_size">16sp</dimen>
+    <dimen name="profiler_avatar_size">90dp</dimen>
+
+    <dimen name="dialog_corners">2dp</dimen>
+
+    <!-- Z-axis elevations -->
+    <dimen name="z_app_bar">4dp</dimen>
+    <dimen name="z_card">2dp</dimen>
+    <dimen name="z_fab">6dp</dimen>
+</resources>

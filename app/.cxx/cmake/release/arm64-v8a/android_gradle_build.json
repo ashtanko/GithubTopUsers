@@ -1,0 +1,56 @@
+
+{
+	"buildFiles" : [ "/Users/alexey/Dev/GithubTopUsers/app/src/main/cpp/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"/Users/alexey/Library/Android/sdk/cmake/3.6.4111459/bin/cmake --build /Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"g-Release-arm64-v8a" : 
+		{
+			"abi" : "arm64-v8a",
+			"artifactName" : "g",
+			"buildCommand" : "/Users/alexey/Library/Android/sdk/cmake/3.6.4111459/bin/cmake --build /Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a --target g",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android21 --gcc-toolchain=/Users/alexey/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/alexey/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -Dg_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "/Users/alexey/Dev/GithubTopUsers/app/src/main/cpp/glib.cpp",
+					"workingDirectory" : "/Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a"
+				}
+			],
+			"output" : "/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/release/obj/arm64-v8a/libg.so",
+			"toolchain" : "8662886052835769434"
+		},
+		"root-Release-arm64-v8a" : 
+		{
+			"abi" : "arm64-v8a",
+			"artifactName" : "root",
+			"buildCommand" : "/Users/alexey/Library/Android/sdk/cmake/3.6.4111459/bin/cmake --build /Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a --target root",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=aarch64-none-linux-android21 --gcc-toolchain=/Users/alexey/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/alexey/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -Droot_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++11 -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "/Users/alexey/Dev/GithubTopUsers/app/src/main/cpp/root.cpp",
+					"workingDirectory" : "/Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a"
+				}
+			],
+			"output" : "/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/release/obj/arm64-v8a/libroot.so",
+			"toolchain" : "8662886052835769434"
+		}
+	},
+	"toolchains" : 
+	{
+		"8662886052835769434" : 
+		{
+			"cCompilerExecutable" : "/Users/alexey/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang",
+			"cppCompilerExecutable" : "/Users/alexey/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+		}
+	}
+}
