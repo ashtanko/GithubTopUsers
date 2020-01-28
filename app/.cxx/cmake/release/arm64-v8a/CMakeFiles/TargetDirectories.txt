@@ -1,4 +1,0 @@
-/Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/edit_cache.dir
-/Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/rebuild_cache.dir
-/Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/root.dir
-/Users/alexey/Dev/GithubTopUsers/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/g.dir

@@ -20,14 +20,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        externalNativeBuild {
-            cmake {
-                cppFlags += "-std=c++11"
-                arguments += "-DANDROID_TOOLCHAIN=clang"
-                //arguments += "-DCMAKE_CXX_FLAGS_DEBUG=-Ofast"
-            }
-        }
     }
 
     lintOptions {
@@ -55,7 +47,7 @@ android {
         abi {
             isEnable = true
             reset()
-            include("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+            //include("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
             isUniversalApk = true
         }
     }
@@ -74,12 +66,6 @@ android {
 
             proguardFiles(getDefaultProguardFile("proguard-android.txt"))
             proguardFiles(file("proguard-rules.pro"))
-        }
-    }
-
-    externalNativeBuild {
-        cmake {
-            setPath(File("$projectDir/src/main/cpp/CMakeLists.txt"))
         }
     }
 

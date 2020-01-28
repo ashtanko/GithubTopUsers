@@ -1,5 +1,0 @@
-# ninja log v5
-0	58	0	CMakeFiles/g.dir/glib.cpp.o	3c14776b9d357a59
-58	233	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/x86/libg.so	dbe5a15c18a256ce
-233	1000	0	CMakeFiles/root.dir/root.cpp.o	13f9758ab683939d
-1002	1052	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/x86/libroot.so	2a5d7550fa9b1d6f

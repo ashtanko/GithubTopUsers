@@ -1,9 +1,0 @@
-# ninja log v5
-0	28	0	CMakeFiles/g.dir/glib.cpp.o	d6e56e1acb5ba1cd
-28	57	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/arm64-v8a/libg.so	3af09d6d913935ef
-0	495	0	CMakeFiles/root.dir/root.cpp.o	90eb3a4b6650ae67
-496	526	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/arm64-v8a/libroot.so	26c9348899a9b1cc
-0	47	0	CMakeFiles/g.dir/glib.cpp.o	d6e56e1acb5ba1cd
-47	124	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/arm64-v8a/libg.so	3af09d6d913935ef
-2	1252	0	CMakeFiles/root.dir/root.cpp.o	90eb3a4b6650ae67
-1252	1303	0	/Users/alexey/Dev/GithubTopUsers/app/build/intermediates/cmake/debug/obj/arm64-v8a/libroot.so	26c9348899a9b1cc
